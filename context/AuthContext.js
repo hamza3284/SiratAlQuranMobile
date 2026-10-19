@@ -39,15 +39,9 @@ export function AuthProvider({ children }) {
   };
 
   const signup = async (payload) => {
-    const { data } = await api.post("/register", payload);
-
-    if (!data.token || !data.user) {
-      throw new Error('Invalid signup response');
-    }
-
-    setAuthToken(data.token);
-    setUser(data.user);
-    await saveAuth(data.token, data.user);
+    // Registration returns a user, not a session. Use the existing login contract.
+    await api.post("/register", payload);
+    await login(payload.email, payload.password);
   };
 
   const logout = async () => {
@@ -69,3 +63,4 @@ export function AuthProvider({ children }) {
 }
 
 export const useAuth = () => useContext(AuthContext);
+
