@@ -65,3 +65,12 @@ Built with a sleek, modern aesthetic featuring a deep blueish-navy theme (`#0f17
 <p align="center">
   © 2026 Sirat Al Quran — صراط القرآن هو طريق النجاح
 </p>
+
+# Basic reliability repairs
+
+Development builds now use the Expo development host (or Android emulator host) instead of always calling production. To override the API, set `EXPO_PUBLIC_APP_URL` to the full API base URL including `/api`; see `.env.example`. Physical devices need a reachable LAN/tunnel address. Release builds default to `https://siratalquran.com/api` and reject cleartext overrides. Restart Expo after changing environment variables.
+
+Signup follows the existing server contract: register the account, then log in to obtain its session. Android configuration references the existing adaptive foreground image.
+
+Run `npm test` with Node 22+ for API URL regression tests. Before release, also test signup/login/logout, a development device/emulator connection, and a release build against staging. These Node tests do not replace an Android/iOS build or device test.
+
